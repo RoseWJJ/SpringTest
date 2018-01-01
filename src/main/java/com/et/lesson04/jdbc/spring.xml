@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+	">
+	<context:component-scan base-package="com.et.lesson04"></context:component-scan>
+	<context:property-placeholder
+		location="classpath:/com/et/lesson04/jdbc/mysql.properties" />
+	<!-- 数据源只是为了获取链接 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="${url}"></property>
+		<property name="username" value="${username1}"></property>
+		<property name="password" value="${password}"></property>
+		<property name="driverClassName" value="${driverClass}"></property>
+	</bean>
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 事务管理器，用于提交和回滚事务， 因为不再使用jdbc的commit和rollback 必须使用事务管理器提供 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 定义数据源 -->
+		<property name="dataSource" ref="dataSource"></property>	
+	</bean>
+	<!-- 定义通知   开启数据库链接 和提交要使用事务管理器那么 通知就是告诉事务管理器，一旦有切点定位到增删改的时候，会自动在前置通知中加个链接， 已经完成          然后将事务管理器和通知关联起来-->
+	<tx:advice id="myAdvise" transaction-manager="transactionManager">
+		<!-- 通知可以定义 对那些方法拦截进而开启事务 -->
+		<tx:attributes>
+			<tx:method name="change*" />
+			<tx:method name="save*"/>
+			<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.*..*.dao.*.*(..))"
+			id="myPoint" />
+		<!-- 将通知引入切点 一旦切点定位到增删改的时候 就通知 myAdvice 去调用事务 开启链接和处理提交 -->
+		<aop:advisor advice-ref="myAdvise" pointcut-ref="myPoint" />
+	</aop:config>
+</beans>

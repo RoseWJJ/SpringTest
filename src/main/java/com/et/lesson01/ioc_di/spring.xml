@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	<!-- A a = new A()
+	<bean id="a" class="springlesson01.A">
+	</bean>
+	<bean id="b" class="springlesson01.A">
+	</bean> -->
+
+	<!--如果没有指定id的类，默认的名字是 类名#编号-->
+
+	<!-- property 标签实际上调用setName指定名字首字母大小写的方法-->
+	<bean id ="a1" class="com.et.lesson01.ioc_di.A">
+		<property name="name" value="张三丰"></property>
+	</bean>
+	<!--  属性的注入 -->
+	<bean id="b1" class="com.et.lesson01.ioc_di.B">
+		<property name="a" ref="a1"></property>
+	</bean> 
+	
+	<!-- 构造器注入
+	C c = new C("1","李四","b1")
+	-->
+	<!-- 根据索引
+	<bean id="c" class="com.et.lesson01.ioc_di.C">
+		<constructor-arg index="0" value="1"></constructor-arg>
+		<constructor-arg index="1" value="李四"></constructor-arg>
+		<constructor-arg index="2" ref="b1"></constructor-arg>
+
+	</bean> -->
+	<!-- 根据字段
+	<bean id="c" class="com.et.lesson01.ioc_di.C">
+		<constructor-arg name="id" value="1"></constructor-arg>
+		<constructor-arg name="name" value="李四"></constructor-arg>
+		<constructor-arg name="b" ref="b1"></constructor-arg>
+
+	</bean>-->
+	<!-- 根据类型 -->
+	<bean id="c" class="com.et.lesson01.ioc_di.C">
+		<constructor-arg type="java.lang.String" value="1"></constructor-arg>
+		<constructor-arg type="java.lang.String" value="李四"></constructor-arg>
+		<constructor-arg type="com.et.lesson01.ioc_di.B" ref="b1"></constructor-arg>
+	</bean>
+</beans>

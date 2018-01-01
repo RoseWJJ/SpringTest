@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	
+	<bean id ="a1" class="com.et.lesson01.autowrite.A">
+		<property name="name" value="张三丰"></property>
+	</bean>
+	<bean id ="a" class="com.et.lesson01.autowrite.A">
+		<property name="name" value="李四"></property>
+	</bean>
+	<!-- 自动装配 想当前实例中所有的对象属性 全部进行填充
+		byType 对象属性所在的类 在容器中只能有一个实例， 也就是说只能有一个 A
+		但是多个实例是相对的，如果b中是个集合可以装配多个A
+	
+		好处：代替了 property
+	 
+	<bean id="b1" class="com.et.lesson01.autowrite.B" autowire="byType">
+	</bean> -->
+	
+	
+	<!-- 
+		byName 根据当前对象属性名称来查找对应的实例；
+	-->
+		
+	<bean id="b1" class="com.et.lesson01.autowrite.B" autowire="byName">
+	</bean> 
+</beans>

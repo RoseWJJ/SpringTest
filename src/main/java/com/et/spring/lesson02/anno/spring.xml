@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/beans/spring-context-4.2.xsd"
+	>
+	<!-- 自动扫描  便于实例化 一旦扫到有特定的注解就会将其实例化 也就是代替了bean的那种实例化方式 只不过 bean中的id 改为了 那个类名首字母小写 
+	还可以在注解后加括号然后将其id 写上； 注意 id的唯一性
+	-->
+	<context:component-scan base-package="com.et.spring.lesson02.anno"></context:component-scan>
+	
+</beans>

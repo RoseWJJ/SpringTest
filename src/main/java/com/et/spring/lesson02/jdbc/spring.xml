@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	<!-- 数据源只是为了获取链接 -->
+	<bean id ="dataSouce" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="url" value="jdbc:mysql://localhost:3306/news"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value="123456"></property>
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	</bean>
+	<!-- 封装一些 操作的方法 -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource" ref="dataSouce"></property>
+	</bean>
+</beans>

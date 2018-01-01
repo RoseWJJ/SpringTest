@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+	
+	<!-- spring 可以指定初始化函数和销毁的方法
+	 默认是单例： 容器加载的时候实例化
+	 多例： 是在调用getBean 时候实例化
+	 -->
+	<bean id="a" class="com.et.spring.lesson02.cycle.A" init-method="ini" destroy-method="des">
+	
+	</bean>
+</beans>
